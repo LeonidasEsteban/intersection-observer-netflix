@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Intersection Observer</title>
+  <style>
+    body {
+      margin: 0;
+      text-align: center;
+    }
+    .box {
+      border: 5px dotted pink;
+      margin: 5px auto;
+      width: 500px;
+      height: 500px;
+    }
+  </style>
+</head>
+<body>
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+  <video id="video" muted width="320" src="https://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4"></video>
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+  <div class="box"></div>
+  <script>
+    const $video = document.querySelector('#video')
+    $video.addEventListener('play', ()=>{
+      console.log('se reproduce el video')
+    })
+    $video.addEventListener('pause', () => {
+      console.log('se pausa el video')
+    })
+    const options = {
+      // root: document.querySelector('body'),
+      rootMargin: '0px 0px 0px 0px',
+      threshold: .5,
+    }
+    function callback(entries, observer) {
+      console.log('se llamó al callback')
+      if (entries[0].isIntersecting) {
+        $video.play()
+      } else {
+        $video.pause()
+      }
+    }
+    const observer = new IntersectionObserver(callback, options)
+    observer.observe($video)
+  </script>
+</body>
+</html>
